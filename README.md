@@ -1,8 +1,10 @@
 # せつめい
-AtCoderで解いた問題を置く場所。  
+AtCoderで解いた問題を置く場所。 
 
 ## 使用言語
-Ruby  
-本業でRuby使う事になったので、練習を兼ねて・・・
+- Ruby
+- Python3
 
 ## その他
+- [AtCoderプロフィール](https://atcoder.jp/users/gengogo5)  
+- [AtCoder Problems](https://kenkoooo.com/atcoder/#/user/gengogo5)
