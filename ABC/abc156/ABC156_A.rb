@@ -1,0 +1,6 @@
+N,R = gets.split.map(&:to_i)
+if N >= 10
+  p R
+else
+  p R + (100*(10-N))
+end
