@@ -1,3 +1,4 @@
+# ビット全探索
 N, S = gets.split.map(&:to_i)
 A = gets.split.map(&:to_i)
 
