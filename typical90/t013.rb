@@ -107,6 +107,10 @@ def dijkstra(n,graph,num)
   # [1] 始点の最短距離を0で設定
   # 始点と最短距離のペア
   dist[n] = 0
+
+  # 経路を保持する(問いには不要だが学習用として)
+  prev = array(num+1, -1)
+
   q << [n, 0]
 
   # キューが空になるまで続ける
@@ -127,6 +131,7 @@ def dijkstra(n,graph,num)
       if (dist[to] > dist[pos] + cost)
         # dist[pos](始点からposまでのコスト) + posからtoまでのコスト
         dist[to] = dist[pos] + cost
+        prev[to] = pos # toを通ってposに着いた経路記録(最後に記録されたものが最短なので上書き)
         # 未確定の頂点を確定待ちキューに入れる
         q << [to, dist[to]]
       end
