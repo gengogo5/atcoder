@@ -1,8 +1,7 @@
-def array(n,ini=nil);      Array.new(n) { ini } end
 def bfs(num, start = 0, graph)
   # 始点からの距離
   # -1は未探索を表す
-  dist = array(num, -1)
+  dist = Array.new(num) {-1}
   # キュー
   queue = []
   # 始点の情報を追加
