@@ -9,3 +9,14 @@ def gism(n);               n.times.map { gets.split.map(&:to_i) } end
 def gismt(n);              n.times.map { gets.split.map(&:to_i) }.transpose end
 def array(n,ini=nil);      Array.new(n) { ini } end
 def darray(n1,n2,ini=nil); Array.new(n1) { Array.new(n2) { ini } } end
+
+# N*Mの二次元配列の外側をfillで埋める
+# fillは参照型ではない
+def enclose(darray, fill)
+  new_one = darray.map(&:dup)
+  m = darray[0].length
+  new_one.unshift(Array.new(m) {fill}) # 上
+  new_one.push(Array.new(m) {fill}) # 下
+  new_one.each { |a| a.push(fill).unshift(fill)  } # 左右
+  new_one
+end
