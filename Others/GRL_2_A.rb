@@ -40,3 +40,28 @@ class UnionFind
     @siz[root(x)]
   end
 end
+
+V,E = gets.split.map(&:to_i)
+edges = Array.new(E)
+
+E.times do |i|
+  s,t,w = gets.split.map(&:to_i)
+  edges[i] = [w,s,t]
+end
+
+# wの小さい順にソート
+edges.sort! { |a,b| a[0] <=> b[0] }
+
+uf = UnionFind.new(V)
+ans = 0
+edges.each do |e|
+  w = e[0]
+  s = e[1]
+  t = e[2]
+  
+  next if uf.same?(s,t)
+  ans += w
+  uf.unite(s,t)
+end
+
+puts ans
