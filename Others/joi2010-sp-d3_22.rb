@@ -41,28 +41,34 @@ class UnionFind
   end
 end
 
-V,E = gets.split.map(&:to_i)
-edges = Array.new(E)
-
-E.times do |i|
+# https://www.ioi-jp.org/camp/2010/2010-sp-tasks/2010-sp-day3_22.pdf
+# N個の都市 M本の道路 K個の都市で本選開催
+N,M,K = gets.split.map(&:to_i)
+edges = Array.new(M) # 道路数分
+M.times do |i|
+  # 無向グラフ
   s,t,w = gets.split.map(&:to_i)
   edges[i] = [w,s,t]
 end
 
-# wの小さい順にソート
+# 道路を料金が安い順にソート
 edges.sort! { |a,b| a[0] <=> b[0] }
 
-uf = UnionFind.new(V)
-ans = 0
-edges.each do |e|
+uf = UnionFind.new(N+1)
+cost = 0
+# 大会開催地はどこでもコストは同じ
+cnt = 0
+M.times do |i|
+  break if cnt >= N-K # 開催地ぶん結合する辺をへらす
+  e = edges[i]
   w = e[0]
   s = e[1]
   t = e[2]
-  
-  # 既に同じグループのsとtをuniteすると閉路になる
+
   next if uf.same?(s,t)
-  ans += w
+  cost += w
+  cnt += 1
   uf.unite(s,t)
 end
 
-puts ans
+puts cost
