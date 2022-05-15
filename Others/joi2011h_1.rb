@@ -12,6 +12,9 @@ SO = Array.new(M+1) { Array.new(N+1, 0) }
 SI = Array.new(M+1) { Array.new(N+1, 0) }
 # 横の累積
 (1..M).each do |i|
+  jm = SJ[i-1]
+  om = SO[i-1]
+  im = SI[i-1]
   (1..N).each do |j|
     is_j = 0
     is_o = 0
@@ -21,18 +24,9 @@ SI = Array.new(M+1) { Array.new(N+1, 0) }
     when 'O' then is_o = 1
     when 'I' then is_i = 1
     end
-    SJ[i][j] = SJ[i][j-1] + is_j
-    SO[i][j] = SO[i][j-1] + is_o
-    SI[i][j] = SI[i][j-1] + is_i
-  end
-end
-
-# 縦の累積
-(1..M).each do |i|
-  (1..N).each do |j|
-    SJ[i][j] = SJ[i-1][j] + SJ[i][j]
-    SO[i][j] = SO[i-1][j] + SO[i][j]
-    SI[i][j] = SI[i-1][j] + SI[i][j]
+    SJ[i][j] = jm[j] + SJ[i][j-1] - jm[j-1] + is_j
+    SO[i][j] = om[j] + SO[i][j-1] - om[j-1] + is_o
+    SI[i][j] = im[j] + SI[i][j-1] - im[j-1] + is_i
   end
 end
 
