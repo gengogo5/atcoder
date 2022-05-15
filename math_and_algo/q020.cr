@@ -1,4 +1,3 @@
-# TLEになる
 N = read_line.to_i
 A = read_line.split.map(&.to_i)
 
