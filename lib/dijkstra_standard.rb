@@ -87,7 +87,8 @@ s,t,d = E.times.map { gets.split.map(&:to_i) }.transpose
 graph = Array.new(V) { Array.new }
 E.times do |i|
   # 有向なので片側だけで良い
-  graph[s[i]] << [t[i],d[i]]
+  # iは辺の番号(経路復元に使う場合の為)
+  graph[s[i]] << [t[i],d[i],i]
 end
 
 # 頂点nから各ノードへの最短距離を配列で返す
@@ -105,6 +106,9 @@ def dijkstra(n, graph, num)
   # 全要素最長距離で初期化
   dist = Array.new(num, Float::INFINITY)
   dist[n] = 0
+
+  # 経路記録用
+  prev = Array.new(num, -1)
 
   # 始点(未確定の頂点)を確定待ちへ
   q << [n, 0]
@@ -131,6 +135,10 @@ def dijkstra(n, graph, num)
         dist[to] = dist[pos] + cost
         # 未確定の頂点を確定待ちキューに入れる
         q << [to, dist[to]]
+
+        # 経路復元用配列の記録
+        # g[2]を使えば辺番号を記録できる
+        prev[to] = pos # 最後にposを通ってtoに着いた
       end
     end
   end
