@@ -11,7 +11,6 @@ class PriorityQueue
     @comp = block || -> (x,y) { x < y }
   end
 
-
   def <<(new_one)
     # 新規アイテムを末尾に入れる
     @heap << new_one
@@ -78,3 +77,35 @@ class PriorityQueue
     @heap = []
   end
 end
+
+Q = gets.to_i
+block = -> (x,y) { x > y }
+maxq = PriorityQueue.new(&block)
+minq = PriorityQueue.new
+ch = Hash.new(0) # xの個数
+ans = []
+Q.times do
+  q = gets.split.map(&:to_i)
+  if q[0] == 1
+    x = q[1]
+    ch[x] += 1
+    maxq << x
+    minq << x
+  elsif q[0] == 2
+    x = q[1]
+    c = q[2]
+    dn = [c,ch[x]].min
+    ch[x] -= dn
+  else
+    while(ch[maxq.top] == 0)
+      maxq.deq
+    end
+    while(ch[minq.top] == 0)
+      minq.deq
+    end
+    mx = maxq.top
+    mn = minq.top
+    ans << (mx - mn)
+  end
+end
+ans.each { |a| puts a }
