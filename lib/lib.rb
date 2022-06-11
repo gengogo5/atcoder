@@ -17,6 +17,16 @@ def enclose(darray, fill)
   m = darray[0].length
   new_one.unshift(Array.new(m) {fill}) # 上
   new_one.push(Array.new(m) {fill}) # 下
-  new_one.each { |a| a.push(fill).unshift(fill)  } # 左右
+  new_one.each { |a| a.push(fill).unshift(fill) } # 左右
   new_one
+end
+
+# 累積和の配列を返す(先頭要素は0)
+def cumulative_sum(org)
+  s = Array.new(org.size+1)
+  s[0] = 0
+  org.size.times do |i|
+    s[i+1] = s[i] + org[i]
+  end
+  s
 end
